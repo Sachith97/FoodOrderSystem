@@ -83,8 +83,8 @@ public class ChefController {
     }
 
     @ApiOperation(value = "Delete a chef")
-    @DeleteMapping(path="/delete-chef", produces= {"application/json"})
-    public String updateChef(@RequestParam("chefId") long chefId) {
+    @DeleteMapping(path="/delete-chef/{chefId}", produces= {"application/json"})
+    public String updateChef(@PathVariable("chefId") long chefId) {
         return chefService.deleteChef(chefId);
     }
 }
