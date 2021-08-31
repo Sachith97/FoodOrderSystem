@@ -117,11 +117,4 @@ public class User {
 	public void setPartyRoomBookings(List<PartyRoomBooking> partyRoomBookings) {
 		this.partyRoomBookings = partyRoomBookings;
 	}
-
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", firstname=" + firstname + ", lastname=" + lastname + ", address=" + address
-				+ ", mobile=" + mobile + ", email=" + email + ", username=" + username + ", password=" + password
-				+ ", type=" + type + ", order_data=" + order_data + "]";
-	}
 }

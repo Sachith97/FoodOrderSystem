@@ -1,7 +1,7 @@
 package com.sac.foodorder.controller;
 
 import com.sac.foodorder.service.CustomUserDetailService;
-import com.sac.foodorder.util.JwtTokenUtil;
+import com.sac.foodorder.service.JwtTokenService;
 import com.sac.foodorder.vo.AuthenticationRequestVO;
 import com.sac.foodorder.vo.AuthenticationResponseVO;
 import io.swagger.annotations.Api;
@@ -28,11 +28,13 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private CustomUserDetailService userDetailsService;
+    private final CustomUserDetailService userDetailsService;
+    private final JwtTokenService jwtTokenService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    public AuthenticationController(CustomUserDetailService userDetailsService, JwtTokenService jwtTokenService) {
+        this.userDetailsService = userDetailsService;
+        this.jwtTokenService = jwtTokenService;
+    }
 
     // Get JWT token to authorize
     @ApiOperation(value = "Get JWT token to authorize")
@@ -48,7 +50,7 @@ public class AuthenticationController {
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequestVO.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
+        final String jwt = jwtTokenService.generateToken(userDetails);
 
         return ResponseEntity.ok(new AuthenticationResponseVO(jwt));
     }

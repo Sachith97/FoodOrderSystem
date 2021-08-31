@@ -6,6 +6,18 @@ public class UserDetailsVO {
     private String lastname;
     private String address;
     private int mobile;
+
+    public UserDetailsVO(String firstname, String lastname, String address, int mobile, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.mobile = mobile;
+        this.email = email;
+    }
+
+    public UserDetailsVO() {
+    }
+
     private String email;
 
     public String getFirstname() {
