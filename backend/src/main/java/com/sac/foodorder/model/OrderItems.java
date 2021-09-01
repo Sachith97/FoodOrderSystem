@@ -12,6 +12,9 @@ import javax.persistence.TemporalType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author Sachith Harshamal
+ */
 @Entity
 public class OrderItems {
 
@@ -39,7 +42,11 @@ public class OrderItems {
 	
 	private int price;
 	private String status;
-	
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
 	public OrderItems() {
 		super();
 	}
