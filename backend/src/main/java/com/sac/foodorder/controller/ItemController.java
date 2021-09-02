@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -50,9 +52,10 @@ public class ItemController {
             @RequestParam("description") String description,
             @RequestParam("currency") String currency,
             @RequestParam("price") int price,
-            @RequestParam("type") String type) {
+            @RequestParam("type") String type,
+            @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        return itemService.saveNewItem(title, item, description, currency, price, type);
+        return itemService.saveNewItem(title, item, description, currency, price, type, multipartFile);
     }
 
     @ApiOperation(value = "Update an available item")
@@ -69,7 +72,7 @@ public class ItemController {
 
     @ApiOperation(value = "Delete an available item")
     @DeleteMapping(path="/delete-item", produces= {"application/json"})
-    public String deleteItem(@RequestParam("code") int code) throws DataNullException {
+    public String deleteItem(@RequestParam("code") int code) throws DataNullException, IOException {
         return itemService.deleteItem(code);
     }
 }

@@ -4,10 +4,14 @@ import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.ItemData;
 import com.sac.foodorder.repository.ItemDataRepository;
 import com.sac.foodorder.service.ItemService;
+import com.sac.foodorder.util.FileUploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +24,7 @@ public class ItemServiceImpl implements ItemService {
     private static final Logger log = LoggerFactory.getLogger(ItemServiceImpl.class);
     private static final String ACTIVE_STATUS = "active";
     private static final String INACTIVE_STATUS = "inactive";
+    private static final String FOOD_IMAGE_DIRECTORY = "src/main/resources/static/content/foods";
 
     private final ItemDataRepository itemRepository;
 
@@ -44,8 +49,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public String saveNewItem(String title, String item, String description, String currency, int price, String type) {
-        // TODO: Image data
+    public String saveNewItem(String title, String item, String description, String currency, int price, String type, MultipartFile multipartFile) throws IOException {
         ItemData itemData = new ItemData();
         itemData.setTitle(title);
         itemData.setItem(item);
@@ -54,6 +58,16 @@ public class ItemServiceImpl implements ItemService {
         itemData.setPrice(price);
         itemData.setType(type);
         itemData.setStatus(ACTIVE_STATUS);
+
+        if(!multipartFile.isEmpty()) {
+            String originalImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            String fileExtension = originalImageName.substring(originalImageName.lastIndexOf("."));
+            String imageName = item + fileExtension;
+
+            FileUploadUtil.saveFile(FOOD_IMAGE_DIRECTORY, imageName, multipartFile);
+
+            itemData.setPhotos(imageName);
+        }
 
         try {
             itemRepository.save(itemData);
@@ -67,7 +81,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public String updateItem(int code, String description, String currency, int price, String type) throws DataNullException {
         Optional<ItemData> optionalItemData = itemRepository.findById(code);
-
         if(!optionalItemData.isPresent()) {
             throw new DataNullException("requested item not available for code: " + code);
         }
@@ -88,12 +101,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public String deleteItem(int code) throws DataNullException {
+    public String deleteItem(int code) throws DataNullException, IOException {
         Optional<ItemData> optionalItemData = itemRepository.findById(code);
-
         if(!optionalItemData.isPresent()) {
             throw new DataNullException("requested item not available for code: " + code);
         }
+
+        String filename = optionalItemData.get().getPhotos();
+        FileUploadUtil.deleteFile(filename, FOOD_IMAGE_DIRECTORY);
 
         ItemData itemData = optionalItemData.get();
         itemData.setStatus(INACTIVE_STATUS);
