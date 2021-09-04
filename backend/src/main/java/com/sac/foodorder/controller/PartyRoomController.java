@@ -71,8 +71,8 @@ public class PartyRoomController {
     }
 
     @ApiOperation(value = "Delete an available room")
-    @DeleteMapping(path="/delete-room", produces= {"application/json"})
-    public String deleteARoom(@RequestParam("roomId") long roomId) throws DataNullException {
+    @DeleteMapping(path="/delete-room/{roomId}", produces= {"application/json"})
+    public String deleteARoom(@PathVariable("roomId") long roomId) throws DataNullException {
         return partyRoomService.deleteARoom(roomId);
     }
 }

@@ -71,8 +71,8 @@ public class ItemController {
     }
 
     @ApiOperation(value = "Delete an available item")
-    @DeleteMapping(path="/delete-item", produces= {"application/json"})
-    public String deleteItem(@RequestParam("code") int code) throws DataNullException, IOException {
+    @DeleteMapping(path="/delete-item/{code}", produces= {"application/json"})
+    public String deleteItem(@PathVariable("code") int code) throws DataNullException, IOException {
         return itemService.deleteItem(code);
     }
 }
