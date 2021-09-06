@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +44,7 @@ public class ItemController {
     }
 
     @ApiOperation(value = "Create a new item")
-    @PostMapping(path="/new-item", produces= {"application/json"})
+    @PostMapping(path="/new-item")
     public String saveNewItem(
             @RequestParam("title") String title,
             @RequestParam("item") String item,
@@ -53,13 +52,13 @@ public class ItemController {
             @RequestParam("currency") String currency,
             @RequestParam("price") int price,
             @RequestParam("type") String type,
-            @RequestParam("image") MultipartFile multipartFile) throws IOException {
+            @RequestParam("image") String image){
 
-        return itemService.saveNewItem(title, item, description, currency, price, type, multipartFile);
+        return itemService.saveNewItem(title, item, description, currency, price, type, image);
     }
 
     @ApiOperation(value = "Update an available item")
-    @PutMapping(path="/update-item", produces= {"application/json"})
+    @PutMapping(path="/update-item")
     public String updateItem(
             @RequestParam("code") int code,
             @RequestParam("description") String description,
@@ -71,7 +70,7 @@ public class ItemController {
     }
 
     @ApiOperation(value = "Delete an available item")
-    @DeleteMapping(path="/delete-item/{code}", produces= {"application/json"})
+    @DeleteMapping(path="/delete-item/{code}")
     public String deleteItem(@PathVariable("code") int code) throws DataNullException, IOException {
         return itemService.deleteItem(code);
     }
