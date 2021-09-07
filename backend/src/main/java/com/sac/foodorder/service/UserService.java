@@ -11,8 +11,7 @@ public interface UserService {
             int mobile,
             String email,
             String username,
-            String password,
-            String type
+            String password
     );
 
     UserDetailsVO getCurrentUserDetails();

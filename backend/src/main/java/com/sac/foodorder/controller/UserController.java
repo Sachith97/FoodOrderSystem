@@ -24,6 +24,19 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ApiOperation(value = "Register new user")
+    @PutMapping(path="/new-user", produces= {"application/json"})
+    public String createNewUser(
+            @RequestParam("firstname") String firstname,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("address") String address,
+            @RequestParam("mobile") int mobile,
+            @RequestParam("email") String email,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password) {
+        return userService.createNewUser(firstname, lastname, address, mobile, email, username, password);
+    }
+
     @ApiOperation(value = "Find customized details of current user")
     @GetMapping(path="/current-user", produces= {"application/json"})
     public UserDetailsVO findCurrentUserDetails() {

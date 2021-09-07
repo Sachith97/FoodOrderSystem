@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService {
     private User user;
 
     @Override
-    public String createNewUser(String firstname, String lastname, String address, int mobile, String email, String username, String password, String type) {
+    public String createNewUser(String firstname, String lastname, String address, int mobile, String email, String username, String password) {
         if(StringUtil.isEmpty(firstname) || StringUtil.isEmpty(lastname) || StringUtil.isEmpty(address) || StringUtil.isEmpty(email) ||
-                StringUtil.isEmpty(username) || StringUtil.isEmpty(password) || StringUtil.isEmpty(type)) {
+                StringUtil.isEmpty(username) || StringUtil.isEmpty(password)) {
             return "Can not create a user profile! Every fields require to create a new user";
         }
         if(!StringUtil.isValidEmail(email)) {
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(password);
-        user.setType(type);
+        user.setType("USER");
         try {
             userRepository.save(user);
         } catch (Exception exception) {
