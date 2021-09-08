@@ -3,6 +3,7 @@ package com.sac.foodorder.controller;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.PartyRoomBooking;
 import com.sac.foodorder.service.PartyRoomBookingService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class PartyRoomRecordController {
 
     @ApiOperation(value = "Add a new room record")
     @PostMapping(path="/new-record", produces= {"application/json"})
-    public String addNewRecord(
+    public CommonResponseVO addNewRecord(
             @RequestParam("userId") int userId,
             @RequestParam("partyRoomId") long partyRoomId) throws DataNullException {
 
@@ -58,7 +59,7 @@ public class PartyRoomRecordController {
 
     @ApiOperation(value = "Update the status of a record")
     @PutMapping(path="/update-record", produces= {"application/json"})
-    public String changeStatusOfARecord(
+    public CommonResponseVO changeStatusOfARecord(
             @RequestParam("recordId") long recordId,
             @RequestParam("status") String status) throws DataNullException {
 

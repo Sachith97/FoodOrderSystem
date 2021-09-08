@@ -1,9 +1,11 @@
 package com.sac.foodorder.service.implementation;
 
+import com.sac.foodorder.enums.Response;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.Chef;
 import com.sac.foodorder.repository.ChefRepository;
 import com.sac.foodorder.service.ChefService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +48,7 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
-    public String saveNewChef(String firstName, String lastName, String gender, int experience, String skill, double price) throws DataNullException {
+    public CommonResponseVO saveNewChef(String firstName, String lastName, String gender, int experience, String skill, double price) throws DataNullException {
         try {
             Chef chef = new Chef();
             chef.setFirstName(firstName);
@@ -60,9 +62,9 @@ public class ChefServiceImpl implements ChefService {
 
             Chef result = chefRepository.save(chef);
             if (result.getFirstName().equals(chef.getFirstName())) {
-                return "successful";
+                return new CommonResponseVO(Response.SUCCESS);
             } else {
-                return "unsuccessful";
+                return new CommonResponseVO(Response.FAILED);
             }
         } catch (NullPointerException nullPointerException) {
             throw new DataNullException("Chef did not save");
@@ -70,16 +72,16 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
-    public String changeStatusOfAChef(long chefId, String status) throws DataNullException {
+    public CommonResponseVO changeStatusOfAChef(long chefId, String status) throws DataNullException {
         Optional<Chef> optionalChef = chefRepository.findById(chefId);
         if(optionalChef.isPresent()) {
             Chef chef = optionalChef.get();
             chef.setStatus(status);
             Chef result = chefRepository.save(chef);
             if(result.getChefId() == chef.getChefId()) {
-                return "successful";
+                return new CommonResponseVO(Response.SUCCESS);
             } else {
-                return "unsuccessful";
+                return new CommonResponseVO(Response.FAILED);
             }
         } else {
             throw new DataNullException("Chef is not available");
@@ -87,7 +89,7 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
-    public String updateChef(long chefId, double price, String skill, int experience) throws DataNullException {
+    public CommonResponseVO updateChef(long chefId, double price, String skill, int experience) throws DataNullException {
         Optional<Chef> optionalChef = chefRepository.findById(chefId);
         if(optionalChef.isPresent()) {
             Chef chef = optionalChef.get();
@@ -96,9 +98,9 @@ public class ChefServiceImpl implements ChefService {
             chef.setExperience(experience);
             Chef result = chefRepository.save(chef);
             if(result.getChefId() == chef.getChefId()) {
-                return "successful";
+                return new CommonResponseVO(Response.SUCCESS);
             } else {
-                return "unsuccessful";
+                return new CommonResponseVO(Response.FAILED);
             }
         } else {
             throw new DataNullException("Chef is not available");
@@ -106,13 +108,13 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
-    public String deleteChef(long chefId) {
+    public CommonResponseVO deleteChef(long chefId) {
         Optional<Chef> chef = chefRepository.findById(chefId);
         if(chef.isPresent()) {
             chefRepository.deleteById(chefId);
-            return "successful";
+            return new CommonResponseVO(Response.SUCCESS);
         } else {
-            return "unsuccessful, invalid chef";
+            return new CommonResponseVO(Response.FAILED);
         }
     }
 }

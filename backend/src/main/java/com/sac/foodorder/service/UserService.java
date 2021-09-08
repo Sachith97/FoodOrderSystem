@@ -5,7 +5,7 @@ import com.sac.foodorder.vo.UserDetailsVO;
 
 public interface UserService {
 
-    String createNewUser(
+    CommonResponseVO createNewUser(
             String firstname,
             String lastname,
             String address,
@@ -17,5 +17,5 @@ public interface UserService {
 
     UserDetailsVO getCurrentUserDetails();
 
-    String resetUserPassword(String password);
+    CommonResponseVO resetUserPassword(String password);
 }

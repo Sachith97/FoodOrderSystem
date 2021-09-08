@@ -1,9 +1,11 @@
 package com.sac.foodorder.service.implementation;
 
+import com.sac.foodorder.enums.Response;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.PartyRoom;
 import com.sac.foodorder.repository.PartyRoomRepository;
 import com.sac.foodorder.service.PartyRoomService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -43,7 +45,7 @@ public class PartyRoomServiceImpl implements PartyRoomService {
     }
 
     @Override
-    public String saveNewRoom(double price, int capacity) {
+    public CommonResponseVO saveNewRoom(double price, int capacity) {
         PartyRoom partyRoom = new PartyRoom();
         partyRoom.setPrice(price);
         partyRoom.setCapacity(capacity);
@@ -53,13 +55,13 @@ public class PartyRoomServiceImpl implements PartyRoomService {
             partyRoomRepository.save(partyRoom);
         } catch (Exception e) {
             log.error("error occurred in inserting phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 
     @Override
-    public String updateRoomDetails(long roomId, double price, int capacity) throws DataNullException {
+    public CommonResponseVO updateRoomDetails(long roomId, double price, int capacity) throws DataNullException {
         Optional<PartyRoom> optionalPartyRoom = partyRoomRepository.findById(roomId);
         if(!optionalPartyRoom.isPresent()) {
             throw new DataNullException("requested room not available for room id: " + roomId);
@@ -73,13 +75,13 @@ public class PartyRoomServiceImpl implements PartyRoomService {
             partyRoomRepository.save(partyRoom);
         } catch (Exception e) {
             log.error("error occurred in updating phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 
     @Override
-    public String updateBookingStatus(long roomId, String status) throws DataNullException {
+    public CommonResponseVO updateBookingStatus(long roomId, String status) throws DataNullException {
         Optional<PartyRoom> optionalPartyRoom = partyRoomRepository.findById(roomId);
         if(!optionalPartyRoom.isPresent()) {
             throw new DataNullException("requested room not available for room id: " + roomId);
@@ -96,13 +98,13 @@ public class PartyRoomServiceImpl implements PartyRoomService {
             partyRoomRepository.save(partyRoom);
         } catch (Exception e) {
             log.error("error occurred in updating phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 
     @Override
-    public String deleteARoom(long roomId) throws DataNullException {
+    public CommonResponseVO deleteARoom(long roomId) throws DataNullException {
         Optional<PartyRoom> optionalPartyRoom = partyRoomRepository.findById(roomId);
         if(!optionalPartyRoom.isPresent()) {
             throw new DataNullException("requested room not available for room id: " + roomId);
@@ -115,8 +117,8 @@ public class PartyRoomServiceImpl implements PartyRoomService {
             partyRoomRepository.save(partyRoom);
         } catch (Exception e) {
             log.error("error occurred in deleting phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 }

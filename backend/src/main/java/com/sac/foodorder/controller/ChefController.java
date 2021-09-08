@@ -3,6 +3,7 @@ package com.sac.foodorder.controller;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.Chef;
 import com.sac.foodorder.service.ChefService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -55,8 +56,8 @@ public class ChefController {
     }
 
     @ApiOperation(value = "New chef")
-    @PostMapping(path="/new-chef")
-    public String saveNewChef(
+    @PostMapping(path="/new-chef", produces= {"application/json"})
+    public CommonResponseVO saveNewChef(
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
             @RequestParam("gender") String gender,
@@ -67,14 +68,14 @@ public class ChefController {
     }
 
     @ApiOperation(value = "Change chef's available status")
-    @PostMapping(path="/change-status-of-a-chef")
-    public String changeStatusOfAChef(@RequestParam("chefId") long chefId, @RequestParam("status") String status) throws DataNullException {
+    @PostMapping(path="/change-status-of-a-chef", produces= {"application/json"})
+    public CommonResponseVO changeStatusOfAChef(@RequestParam("chefId") long chefId, @RequestParam("status") String status) throws DataNullException {
         return chefService.changeStatusOfAChef(chefId, status);
     }
 
     @ApiOperation(value = "Update available chef details")
-    @PutMapping(path="/update-chef")
-    public String updateChef(
+    @PutMapping(path="/update-chef", produces= {"application/json"})
+    public CommonResponseVO updateChef(
             @RequestParam("chefId") long chefId,
             @RequestParam("experience") int experience,
             @RequestParam("skill") String skill,
@@ -83,8 +84,8 @@ public class ChefController {
     }
 
     @ApiOperation(value = "Delete a chef")
-    @DeleteMapping(path="/delete-chef/{chefId}")
-    public String updateChef(@PathVariable("chefId") long chefId) {
+    @DeleteMapping(path="/delete-chef/{chefId}", produces= {"application/json"})
+    public CommonResponseVO updateChef(@PathVariable("chefId") long chefId) {
         return chefService.deleteChef(chefId);
     }
 }

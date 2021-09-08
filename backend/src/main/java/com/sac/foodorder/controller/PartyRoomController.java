@@ -3,6 +3,7 @@ package com.sac.foodorder.controller;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.PartyRoom;
 import com.sac.foodorder.service.PartyRoomService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,7 +45,7 @@ public class PartyRoomController {
 
     @ApiOperation(value = "Add a new room data")
     @PostMapping(path="/new-room", produces= {"application/json"})
-    public String saveNewRoom(
+    public CommonResponseVO saveNewRoom(
             @RequestParam("price") double price,
             @RequestParam("capacity") int capacity) {
 
@@ -53,7 +54,7 @@ public class PartyRoomController {
 
     @ApiOperation(value = "Update an available room details")
     @PutMapping(path="/update-room", produces= {"application/json"})
-    public String updateRoomDetails(
+    public CommonResponseVO updateRoomDetails(
             @RequestParam("roomId") long roomId,
             @RequestParam("price") double price,
             @RequestParam("capacity") int capacity) throws DataNullException {
@@ -63,7 +64,7 @@ public class PartyRoomController {
 
     @ApiOperation(value = "Update a room's available status")
     @PutMapping(path="/update-status")
-    public String updateBookingStatus(
+    public CommonResponseVO updateBookingStatus(
             @RequestParam("roomId") long roomId,
             @RequestParam("status") String status) throws DataNullException {
 
@@ -72,7 +73,7 @@ public class PartyRoomController {
 
     @ApiOperation(value = "Delete an available room")
     @DeleteMapping(path="/delete-room/{roomId}", produces= {"application/json"})
-    public String deleteARoom(@PathVariable("roomId") long roomId) throws DataNullException {
+    public CommonResponseVO deleteARoom(@PathVariable("roomId") long roomId) throws DataNullException {
         return partyRoomService.deleteARoom(roomId);
     }
 }

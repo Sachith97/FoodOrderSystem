@@ -1,5 +1,7 @@
 package com.sac.foodorder.vo;
 
+import com.sac.foodorder.enums.Response;
+
 public class CommonResponseVO {
 
     private int responseCode;
@@ -8,9 +10,9 @@ public class CommonResponseVO {
     public CommonResponseVO() {
     }
 
-    public CommonResponseVO(int responseCode, String responseMessage) {
-        this.responseCode = responseCode;
-        this.responseMessage = responseMessage;
+    public CommonResponseVO(Response response) {
+        this.responseCode = response.getResponseCode();
+        this.responseMessage = response.getResponseMessage();
     }
 
     public int getResponseCode() {

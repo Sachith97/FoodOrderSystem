@@ -1,9 +1,11 @@
 package com.sac.foodorder.service.implementation;
 
+import com.sac.foodorder.enums.Response;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.ItemData;
 import com.sac.foodorder.repository.ItemDataRepository;
 import com.sac.foodorder.service.ItemService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,6 @@ public class ItemServiceImpl implements ItemService {
     private static final Logger log = LoggerFactory.getLogger(ItemServiceImpl.class);
     private static final String ACTIVE_STATUS = "active";
     private static final String INACTIVE_STATUS = "inactive";
-    private static final String FOOD_IMAGE_DIRECTORY = "src/main/resources/static/content/foods";
 
     private final ItemDataRepository itemRepository;
 
@@ -45,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public String saveNewItem(String title, String item, String description, String currency, int price, String type, String image) {
+    public CommonResponseVO saveNewItem(String title, String item, String description, String currency, int price, String type, String image) {
         ItemData itemData = new ItemData();
         itemData.setTitle(title);
         itemData.setItem(item);
@@ -60,13 +61,13 @@ public class ItemServiceImpl implements ItemService {
             itemRepository.save(itemData);
         } catch (Exception e) {
             log.error("error occurred in inserting phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 
     @Override
-    public String updateItem(int code, String description, String currency, int price, String type) throws DataNullException {
+    public CommonResponseVO updateItem(int code, String description, String currency, int price, String type) throws DataNullException {
         Optional<ItemData> optionalItemData = itemRepository.findById(code);
         if(!optionalItemData.isPresent()) {
             throw new DataNullException("requested item not available for code: " + code);
@@ -82,13 +83,13 @@ public class ItemServiceImpl implements ItemService {
             itemRepository.save(itemData);
         } catch (Exception e) {
             log.error("error occurred in updating phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 
     @Override
-    public String deleteItem(int code) throws DataNullException {
+    public CommonResponseVO deleteItem(int code) throws DataNullException {
         Optional<ItemData> optionalItemData = itemRepository.findById(code);
         if(!optionalItemData.isPresent()) {
             throw new DataNullException("requested item not available for code: " + code);
@@ -99,8 +100,8 @@ public class ItemServiceImpl implements ItemService {
             itemRepository.save(itemData);
         } catch (Exception e) {
             log.error("error occurred in deleting phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 }

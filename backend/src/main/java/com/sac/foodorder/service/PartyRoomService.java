@@ -2,6 +2,7 @@ package com.sac.foodorder.service;
 
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.PartyRoom;
+import com.sac.foodorder.vo.CommonResponseVO;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ public interface PartyRoomService {
 
     PartyRoom findARoom(long roomId) throws DataNullException;
 
-    String saveNewRoom(double price, int capacity);
+    CommonResponseVO saveNewRoom(double price, int capacity);
 
-    String updateRoomDetails(long roomId, double price, int capacity) throws DataNullException;
+    CommonResponseVO updateRoomDetails(long roomId, double price, int capacity) throws DataNullException;
 
-    String updateBookingStatus(long roomId, String status) throws DataNullException;
+    CommonResponseVO updateBookingStatus(long roomId, String status) throws DataNullException;
 
-    String deleteARoom(long roomId) throws DataNullException;
+    CommonResponseVO deleteARoom(long roomId) throws DataNullException;
 }

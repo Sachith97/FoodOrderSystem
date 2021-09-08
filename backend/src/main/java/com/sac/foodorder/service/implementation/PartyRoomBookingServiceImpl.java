@@ -1,5 +1,6 @@
 package com.sac.foodorder.service.implementation;
 
+import com.sac.foodorder.enums.Response;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.PartyRoom;
 import com.sac.foodorder.model.PartyRoomBooking;
@@ -8,6 +9,7 @@ import com.sac.foodorder.repository.PartyRoomBookingRepository;
 import com.sac.foodorder.repository.PartyRoomRepository;
 import com.sac.foodorder.repository.UserRepository;
 import com.sac.foodorder.service.PartyRoomBookingService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -61,7 +63,7 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
     }
 
     @Override
-    public String addNewRecord(int userId, long partyRoomId) throws DataNullException {
+    public CommonResponseVO addNewRecord(int userId, long partyRoomId) throws DataNullException {
         Optional<User> optionalUser = userRepository.findById(userId);
         if(!optionalUser.isPresent()) {
             throw new DataNullException("no user available for user ID: " + userId);
@@ -85,13 +87,13 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
             partyRoomBookingRepository.save(partyRoomBooking);
         } catch (Exception e) {
             log.error("error occurred in inserting phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 
     @Override
-    public String changeStatusOfARecord(long recordId, String status) throws DataNullException {
+    public CommonResponseVO changeStatusOfARecord(long recordId, String status) throws DataNullException {
         Optional<PartyRoomBooking> optionalPartyRoomBooking = partyRoomBookingRepository.findById(recordId);
         if(!optionalPartyRoomBooking.isPresent()) {
             throw new DataNullException("no record available for record ID: " + recordId);
@@ -108,8 +110,8 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
             partyRoomBookingRepository.save(partyRoomBooking);
         } catch (Exception e) {
             log.error("error occurred in updating phase | " + e);
-            return "unsuccessful";
+            return new CommonResponseVO(Response.FAILED);
         }
-        return "successful";
+        return new CommonResponseVO(Response.SUCCESS);
     }
 }

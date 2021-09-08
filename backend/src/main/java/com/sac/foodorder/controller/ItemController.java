@@ -3,6 +3,7 @@ package com.sac.foodorder.controller;
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.ItemData;
 import com.sac.foodorder.service.ItemService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,7 @@ public class ItemController {
 
     @ApiOperation(value = "Create a new item")
     @PostMapping(path="/new-item")
-    public String saveNewItem(
+    public CommonResponseVO saveNewItem(
             @RequestParam("title") String title,
             @RequestParam("item") String item,
             @RequestParam("description") String description,
@@ -59,7 +60,7 @@ public class ItemController {
 
     @ApiOperation(value = "Update an available item")
     @PutMapping(path="/update-item")
-    public String updateItem(
+    public CommonResponseVO updateItem(
             @RequestParam("code") int code,
             @RequestParam("description") String description,
             @RequestParam("currency") String currency,
@@ -71,7 +72,7 @@ public class ItemController {
 
     @ApiOperation(value = "Delete an available item")
     @DeleteMapping(path="/delete-item/{code}")
-    public String deleteItem(@PathVariable("code") int code) throws DataNullException, IOException {
+    public CommonResponseVO deleteItem(@PathVariable("code") int code) throws DataNullException, IOException {
         return itemService.deleteItem(code);
     }
 }

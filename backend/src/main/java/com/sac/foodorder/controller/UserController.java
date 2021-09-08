@@ -28,7 +28,7 @@ public class UserController {
 
     @ApiOperation(value = "Register new user")
     @PostMapping(path="/new-user", produces= {"application/json"})
-    public String createNewUser(
+    public CommonResponseVO createNewUser(
             @RequestParam("firstname") String firstname,
             @RequestParam("lastname") String lastname,
             @RequestParam("address") String address,
@@ -47,7 +47,7 @@ public class UserController {
 
     @ApiOperation(value = "Update the login password of current user")
     @PutMapping(path="/current-user/update-password", produces= {"application/json"})
-    public String resetUserPassword(@RequestParam("password") String password) {
+    public CommonResponseVO resetUserPassword(@RequestParam("password") String password) {
         return userService.resetUserPassword(password);
     }
 }

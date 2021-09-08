@@ -2,6 +2,7 @@ package com.sac.foodorder.service;
 
 import com.sac.foodorder.exception.DataNullException;
 import com.sac.foodorder.model.PartyRoomBooking;
+import com.sac.foodorder.vo.CommonResponseVO;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface PartyRoomBookingService {
 
     List<PartyRoomBooking> findRecordsByUser(int userId) throws DataNullException;
 
-    String addNewRecord(int userId, long partyRoomId) throws DataNullException;
+    CommonResponseVO addNewRecord(int userId, long partyRoomId) throws DataNullException;
 
-    String changeStatusOfARecord(long recordId, String status) throws DataNullException;
+    CommonResponseVO changeStatusOfARecord(long recordId, String status) throws DataNullException;
 }
