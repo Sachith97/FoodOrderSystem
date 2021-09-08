@@ -62,7 +62,7 @@ public class PartyRoomController {
     }
 
     @ApiOperation(value = "Update a room's available status")
-    @PutMapping(path="/update-status", produces= {"application/json"})
+    @PutMapping(path="/update-status")
     public String updateBookingStatus(
             @RequestParam("roomId") long roomId,
             @RequestParam("status") String status) throws DataNullException {

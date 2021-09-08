@@ -1,10 +1,12 @@
 package com.sac.foodorder.controller;
 
 import com.sac.foodorder.service.UserService;
+import com.sac.foodorder.vo.CommonResponseVO;
 import com.sac.foodorder.vo.UserDetailsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +27,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "Register new user")
-    @PutMapping(path="/new-user", produces= {"application/json"})
+    @PostMapping(path="/new-user", produces= {"application/json"})
     public String createNewUser(
             @RequestParam("firstname") String firstname,
             @RequestParam("lastname") String lastname,

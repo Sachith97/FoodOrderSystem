@@ -1,5 +1,6 @@
 package com.sac.foodorder.service;
 
+import com.sac.foodorder.vo.CommonResponseVO;
 import com.sac.foodorder.vo.UserDetailsVO;
 
 public interface UserService {

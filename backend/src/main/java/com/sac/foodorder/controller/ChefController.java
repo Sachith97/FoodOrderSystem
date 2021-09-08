@@ -55,7 +55,7 @@ public class ChefController {
     }
 
     @ApiOperation(value = "New chef")
-    @PostMapping(path="/new-chef", produces= {"application/json"})
+    @PostMapping(path="/new-chef")
     public String saveNewChef(
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
@@ -67,13 +67,13 @@ public class ChefController {
     }
 
     @ApiOperation(value = "Change chef's available status")
-    @PostMapping(path="/change-status-of-a-chef", produces= {"application/json"})
+    @PostMapping(path="/change-status-of-a-chef")
     public String changeStatusOfAChef(@RequestParam("chefId") long chefId, @RequestParam("status") String status) throws DataNullException {
         return chefService.changeStatusOfAChef(chefId, status);
     }
 
     @ApiOperation(value = "Update available chef details")
-    @PutMapping(path="/update-chef", produces= {"application/json"})
+    @PutMapping(path="/update-chef")
     public String updateChef(
             @RequestParam("chefId") long chefId,
             @RequestParam("experience") int experience,
@@ -83,7 +83,7 @@ public class ChefController {
     }
 
     @ApiOperation(value = "Delete a chef")
-    @DeleteMapping(path="/delete-chef/{chefId}", produces= {"application/json"})
+    @DeleteMapping(path="/delete-chef/{chefId}")
     public String updateChef(@PathVariable("chefId") long chefId) {
         return chefService.deleteChef(chefId);
     }
