@@ -2,6 +2,9 @@ package com.sac.foodorder.vo;
 
 import com.sac.foodorder.enums.Response;
 
+/**
+ * @author Sachith Harshamal
+ */
 public class CommonResponseVO {
 
     private int responseCode;

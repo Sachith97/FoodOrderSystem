@@ -85,6 +85,11 @@ public class UserServiceImpl implements UserService {
         return new CommonResponseVO(Response.SUCCESS);
     }
 
+    @Override
+    public User getCurrentUser() {
+        return getUser();
+    }
+
     private User getUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();

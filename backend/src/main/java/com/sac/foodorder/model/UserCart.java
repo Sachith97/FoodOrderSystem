@@ -13,21 +13,22 @@ public class UserCart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cart_id;
-	private int uid;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	private int quantity;
 	
 	@ManyToOne
 	@JoinColumn(name = "item_code")
-	private ItemData item_data;
+	private ItemData itemData;
 
 	public UserCart() {
-		super();
 	}
 	
-	public UserCart(int uid, ItemData item_data, int quantity) {
-		super();
-		this.uid = uid;
-		this.item_data = item_data;
+	public UserCart(ItemData itemData, int quantity) {
+		this.itemData = itemData;
 		this.quantity = quantity;
 	}
 
@@ -35,20 +36,12 @@ public class UserCart {
 		return cart_id;
 	}
 
-	public int getUid() {
-		return uid;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUid(int uid) {
-		this.uid = uid;
-	}
-
-	public ItemData getItemData() {
-		return item_data;
-	}
-
-	public void setItemData(ItemData itemData) {
-		this.item_data = itemData;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getQuantity() {
@@ -57,5 +50,13 @@ public class UserCart {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public ItemData getItemData() {
+		return itemData;
+	}
+
+	public void setItemData(ItemData itemData) {
+		this.itemData = itemData;
 	}
 }

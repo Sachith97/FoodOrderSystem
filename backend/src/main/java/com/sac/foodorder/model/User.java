@@ -24,7 +24,11 @@ public class User {
 	private String username;
 	private String password;
 	private String type;
-	
+
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<UserCart> userCarts;
+
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<OrderItems> order_data;
@@ -108,6 +112,14 @@ public class User {
 
 	public void setOrder_data(List<OrderItems> order_data) {
 		this.order_data = order_data;
+	}
+
+	public List<UserCart> getUserCarts() {
+		return userCarts;
+	}
+
+	public void setUserCarts(List<UserCart> userCarts) {
+		this.userCarts = userCarts;
 	}
 
 	public List<PartyRoomBooking> getPartyRoomBookings() {

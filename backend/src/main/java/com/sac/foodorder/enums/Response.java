@@ -1,5 +1,8 @@
 package com.sac.foodorder.enums;
 
+/**
+ * @author Sachith Harshamal
+ */
 public enum Response {
 
     SUCCESS(1, "Success"),
@@ -9,8 +12,8 @@ public enum Response {
     AVAILABLE_USERNAME(5, "Username available, try another username!"),
     AVAILABLE_EMAIL(6, "This email has already registered, try to login or reset password!");
 
-    private int responseCode;
-    private String responseMessage;
+    private final int responseCode;
+    private final String responseMessage;
 
     Response(int responseCode, String responseMessage) {
         this.responseCode = responseCode;

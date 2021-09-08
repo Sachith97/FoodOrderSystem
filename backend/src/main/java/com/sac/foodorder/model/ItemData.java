@@ -30,17 +30,15 @@ public class ItemData {
 	@JsonIgnore
 	private List<OrderItems> orderItems;
 
-	@OneToMany(mappedBy = "item_data")
+	@OneToMany(mappedBy = "itemData")
 	@JsonIgnore
 	private List<UserCart> userCart;
 	
 	public ItemData() {
-		super();
 	}
 
 	public ItemData(String title, String item, String description, String currency, int price, String type,
 			String photos, String status) {
-		super();
 		this.title = title;
 		this.item = item;
 		this.description = description;
