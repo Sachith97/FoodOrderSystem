@@ -13,7 +13,9 @@ public interface ItemService {
 
     List<ItemData> findAllItems();
 
-    ItemData findAItem(int code) throws DataNullException;
+    ItemData findAItemByCode(int code) throws DataNullException;
+
+    ItemData findAItemByTitle(String title) throws DataNullException;
 
     CommonResponseVO saveNewItem(String title, String item, String description, String currency, int price, String type, String image);
 

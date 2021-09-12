@@ -35,13 +35,24 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemData findAItem(int code) throws DataNullException {
+    public ItemData findAItemByCode(int code) throws DataNullException {
         Optional<ItemData> itemData = itemRepository.findById(code);
 
         if(itemData.isPresent()) {
             return itemData.get();
         } else {
             throw new DataNullException("requested item not available for code: " + code);
+        }
+    }
+
+    @Override
+    public ItemData findAItemByTitle(String title) throws DataNullException {
+        Optional<ItemData> itemData = itemRepository.findByTitle(title);
+
+        if(itemData.isPresent()) {
+            return itemData.get();
+        } else {
+            throw new DataNullException("requested item not available for title: " + title);
         }
     }
 

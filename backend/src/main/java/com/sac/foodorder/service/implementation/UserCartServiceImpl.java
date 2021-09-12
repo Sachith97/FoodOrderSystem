@@ -93,6 +93,6 @@ public class UserCartServiceImpl implements UserCartService {
     }
 
     private ItemData getItem(int itemCode) throws DataNullException {
-        return itemService.findAItem(itemCode);
+        return itemService.findAItemByCode(itemCode);
     }
 }
