@@ -46,8 +46,8 @@ public class ItemController {
 
     @ApiOperation(value = "Find a single food item data by name")
     @GetMapping(path="/find-items/{title}", produces= {"application/json"})
-    public ItemData findAItemByTitle(@PathVariable("title") String title) throws DataNullException {
-        return itemService.findAItemByTitle(title);
+    public List<ItemData> findAItemsByTitle(@PathVariable("title") String title) {
+        return itemService.findItemsByTitle(title);
     }
 
     @ApiOperation(value = "Create a new item")

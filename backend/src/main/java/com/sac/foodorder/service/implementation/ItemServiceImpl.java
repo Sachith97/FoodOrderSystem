@@ -46,14 +46,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemData findAItemByTitle(String title) throws DataNullException {
-        Optional<ItemData> itemData = itemRepository.findByTitle(title);
-
-        if(itemData.isPresent()) {
-            return itemData.get();
-        } else {
-            throw new DataNullException("requested item not available for title: " + title);
-        }
+    public List<ItemData> findItemsByTitle(String title) {
+        return itemRepository.findByTitle(title);
     }
 
     @Override

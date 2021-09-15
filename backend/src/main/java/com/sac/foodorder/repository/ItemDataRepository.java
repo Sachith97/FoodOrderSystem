@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Sachith Harshamal
@@ -13,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface ItemDataRepository extends JpaRepository<ItemData, Integer> {
 
-	Optional<ItemData> findByTitle(String title);
+	List<ItemData> findByTitle(String title);
 }

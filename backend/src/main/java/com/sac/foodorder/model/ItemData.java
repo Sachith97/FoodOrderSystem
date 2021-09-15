@@ -10,6 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * @author Sachith Harshamal
+ */
 @Entity
 @Table(name = "item_data")
 public class ItemData {
