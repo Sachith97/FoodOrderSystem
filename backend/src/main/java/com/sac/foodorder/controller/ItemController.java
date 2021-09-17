@@ -39,14 +39,14 @@ public class ItemController {
     }
 
     @ApiOperation(value = "Find a single food item data")
-    @GetMapping(path="/find-items/{itemCode}", produces= {"application/json"})
+    @GetMapping(path="/find-item/{itemCode}", produces= {"application/json"})
     public ItemData findAItemByCode(@PathVariable("itemCode") int code) throws DataNullException {
         return itemService.findAItemByCode(code);
     }
 
-    @ApiOperation(value = "Find a single food item data by name")
+    @ApiOperation(value = "Find a single food item data by title")
     @GetMapping(path="/find-items/{title}", produces= {"application/json"})
-    public List<ItemData> findAItemsByTitle(@PathVariable("title") String title) {
+    public List<ItemData> findItemsByTitle(@PathVariable("title") String title) {
         return itemService.findItemsByTitle(title);
     }
 
