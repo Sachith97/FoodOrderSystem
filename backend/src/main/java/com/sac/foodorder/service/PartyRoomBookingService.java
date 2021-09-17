@@ -17,7 +17,7 @@ public interface PartyRoomBookingService {
 
     List<PartyRoomBooking> findRecordsByUser(int userId) throws DataNullException;
 
-    CommonResponseVO addNewRecord(int userId, long partyRoomId) throws DataNullException;
+    CommonResponseVO addNewRecord(long partyRoomId) throws DataNullException;
 
     CommonResponseVO changeStatusOfARecord(long recordId, String status) throws DataNullException;
 }

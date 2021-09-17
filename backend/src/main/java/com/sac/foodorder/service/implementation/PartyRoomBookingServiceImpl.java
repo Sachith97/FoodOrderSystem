@@ -9,6 +9,7 @@ import com.sac.foodorder.repository.PartyRoomBookingRepository;
 import com.sac.foodorder.repository.PartyRoomRepository;
 import com.sac.foodorder.repository.UserRepository;
 import com.sac.foodorder.service.PartyRoomBookingService;
+import com.sac.foodorder.service.UserService;
 import com.sac.foodorder.vo.CommonResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +31,13 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
     private static final String CLOSE_STATUS = "close";
 
     private final PartyRoomBookingRepository partyRoomBookingRepository;
-    private final UserRepository userRepository;
     private final PartyRoomRepository partyRoomRepository;
+    private final UserService userService;
 
-    public PartyRoomBookingServiceImpl(PartyRoomBookingRepository partyRoomBookingRepository, UserRepository userRepository, PartyRoomRepository partyRoomRepository) {
+    public PartyRoomBookingServiceImpl(PartyRoomBookingRepository partyRoomBookingRepository, PartyRoomRepository partyRoomRepository, UserService userService) {
         this.partyRoomBookingRepository = partyRoomBookingRepository;
-        this.userRepository = userRepository;
         this.partyRoomRepository = partyRoomRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
 
     @Override
     public List<PartyRoomBooking> findRecordsByUser(int userId) throws DataNullException {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<User> optionalUser = userService.findById(userId);
         if(!optionalUser.isPresent()) {
             throw new DataNullException("no user available for user ID: " + userId);
         }
@@ -63,12 +64,7 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
     }
 
     @Override
-    public CommonResponseVO addNewRecord(int userId, long partyRoomId) throws DataNullException {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if(!optionalUser.isPresent()) {
-            throw new DataNullException("no user available for user ID: " + userId);
-        }
-
+    public CommonResponseVO addNewRecord(long partyRoomId) throws DataNullException {
         Optional<PartyRoom> optionalPartyRoom = partyRoomRepository.findById(partyRoomId);
         if(!optionalPartyRoom.isPresent()) {
             throw new DataNullException("no room available for room ID: " + partyRoomId);
@@ -78,7 +74,7 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
 
         PartyRoomBooking partyRoomBooking = new PartyRoomBooking();
         partyRoomBooking.setPartyRoom(optionalPartyRoom.get());
-        partyRoomBooking.setUser(optionalUser.get());
+        partyRoomBooking.setUser(getCurrentUser());
         partyRoomBooking.setStatus(PENDING_STATUS);
         partyRoomBooking.setOrderDate(currentDateTime);
         partyRoomBooking.setOrderTime(currentDateTime);
@@ -113,5 +109,9 @@ public class PartyRoomBookingServiceImpl implements PartyRoomBookingService {
             return new CommonResponseVO(Response.FAILED);
         }
         return new CommonResponseVO(Response.SUCCESS);
+    }
+
+    private User getCurrentUser() {
+        return userService.getCurrentUser();
     }
 }

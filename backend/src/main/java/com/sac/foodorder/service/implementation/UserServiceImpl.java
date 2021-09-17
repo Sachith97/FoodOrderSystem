@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * @author Sachith Harshamal
  */
@@ -88,6 +90,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         return getUser();
+    }
+
+    @Override
+    public Optional<User> findById(int userId) {
+        return userRepository.findById(userId);
     }
 
     private User getUser() {

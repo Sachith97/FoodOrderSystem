@@ -4,6 +4,8 @@ import com.sac.foodorder.model.User;
 import com.sac.foodorder.vo.CommonResponseVO;
 import com.sac.foodorder.vo.UserDetailsVO;
 
+import java.util.Optional;
+
 public interface UserService {
 
     CommonResponseVO createNewUser(
@@ -21,4 +23,6 @@ public interface UserService {
     CommonResponseVO resetUserPassword(String password);
 
     User getCurrentUser();
+
+    Optional<User> findById(int userId);
 }

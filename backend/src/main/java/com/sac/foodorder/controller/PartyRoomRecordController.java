@@ -51,10 +51,9 @@ public class PartyRoomRecordController {
     @ApiOperation(value = "Add a new room record")
     @PostMapping(path="/new-record", produces= {"application/json"})
     public CommonResponseVO addNewRecord(
-            @RequestParam("userId") int userId,
             @RequestParam("partyRoomId") long partyRoomId) throws DataNullException {
 
-        return partyRoomBookingService.addNewRecord(userId, partyRoomId);
+        return partyRoomBookingService.addNewRecord(partyRoomId);
     }
 
     @ApiOperation(value = "Update the status of a record")
